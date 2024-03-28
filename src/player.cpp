@@ -4,7 +4,7 @@
 #include "game.h"
 
 
-void player::PlayerMovement(Vector2 &Mokey, Texture2D MokeySize, float deltaTime)
+void player::PlayerMovement(Vector2 &Bocks, Texture2D BocksSize, float deltaTime)
 {
     timer++;
     // std::cout <<Looking_Left << std::endl;;
@@ -17,6 +17,8 @@ void player::PlayerMovement(Vector2 &Mokey, Texture2D MokeySize, float deltaTime
        
         timer = 0;
     }
+
+    
     if(IsKeyDown(KEY_A))
     {
         Looking_Left = true;
@@ -27,61 +29,24 @@ void player::PlayerMovement(Vector2 &Mokey, Texture2D MokeySize, float deltaTime
         Looking_Left = false;
         Looking_Right = true;
     }
-    if (IsKeyDown(KEY_D) && Mokey.x < GameStuff.SCREEN_WIDTH - MokeySize.width)
+    if (IsKeyDown(KEY_D) && Bocks.x < GameStuff.SCREEN_WIDTH - BocksSize.width)
     {
         // Mokey.x += speedPlayer * deltaTime;
-        Mokey.x += speedPlayer;
-        
+        Bocks.x += speedPlayer; 
     }
 
-    if (IsKeyDown(KEY_A) && Mokey.x > 0)
+    if (IsKeyDown(KEY_A) && Bocks.x > 0)
     {
-       Mokey.x -= speedPlayer;
+       Bocks.x -= speedPlayer;
+    }
+    if (IsKeyDown(KEY_S) && Bocks.y < GameStuff.SCREEN_HEIGHT - BocksSize.height)
+    {
+        // Mokey.x += speedPlayer * deltaTime;
+        Bocks.y += speedPlayer; 
     }
 
-    
-    if (IsKeyDown(KEY_SPACE) && Onground)
+    if (IsKeyDown(KEY_W) && Bocks.y > 0)
     {
-        isJumping = true;
-        Onground = false;
-        JumpForce = 1.0f; 
-    }
-   
-    if (!IsKeyDown(KEY_SPACE) && Onground)
-    {
-        isJumping = false;
-    }
-
-    if (isJumping)
-    {
-        Mokey.y -= JumpForce;
-        JumpForce -= gravity;
-
-       
-        if (Mokey.y >= GameStuff.SCREEN_HEIGHT - MokeySize.height)
-        {
-            Mokey.y = GameStuff.SCREEN_HEIGHT - MokeySize.height; 
-            isJumping = false;
-            Onground = true;
-            JumpForce = 0.0f;
-        }
-    }
-    
-    else
-    {
-        // Apply gravity when not jumping
-        if (Mokey.y < GameStuff.SCREEN_HEIGHT - MokeySize.height)
-        {
-            Mokey.y += gravity;
-        }
-        else
-        {
-            Mokey.y = GameStuff.SCREEN_HEIGHT - MokeySize.height;
-            Onground = true;
-        }
-    }
-    if(JumpForce < 0)
-    {
-        Falling = true;
+       Bocks.y -= speedPlayer;
     }
 }

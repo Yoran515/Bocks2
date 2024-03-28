@@ -15,13 +15,13 @@ public:
   bool Onground; 
   float speedPlayer = 0.2f;
   float gravity = 0.001f;
-  float JumpForce = 1.0f;
+  float JumpForce = 0.1f;
   bool isJumping;
 
   bool Looking_Left= false;
   bool Looking_Right= false;
   
   bool Falling;
-  void PlayerMovement(Vector2 &Mokey, Texture2D MokeySize, float deltaTime);
+  void PlayerMovement(Vector2 &Bocks, Texture2D BocksSize, float deltaTime);
 };
 #endif
