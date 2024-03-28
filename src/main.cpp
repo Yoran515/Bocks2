@@ -1,4 +1,5 @@
 #include "player.h"
+#include "enemy.h"
 #include "raylib.h"
 #include <iostream>
 #include "game.h"
@@ -9,6 +10,7 @@ int main()
     
     player playerInstance;
     game GameStuff;
+    enemy Enemy;
 
     InitWindow(GameStuff.SCREEN_WIDTH, GameStuff.SCREEN_HEIGHT, "Window title");
 
@@ -26,12 +28,12 @@ int main()
     Bocks.x = 500;
     Bocks.y = 500;
 
-    BocksEnemy.x =960;
+    BocksEnemy.x = 960;
     BocksEnemy.y = 540;
     
     while (!WindowShouldClose())
     {
-         std::cout <<playerInstance.Falling <<std::endl;
+         std::cout <<BocksEnemy.x <<std::endl;
         // GameStuff.CheckCollision(playerInstance, MokeyImage, Mokey);
         for (const auto& platform : GameStuff.platforms)
         {
@@ -39,6 +41,7 @@ int main()
         }
  
         playerInstance.PlayerMovement(Bocks, BocksImage, deltaTime); 
+        Enemy.EnemyMovement(BocksEnemy, BocksEnemyImage, deltaTime); 
         BeginDrawing();
         ClearBackground(RAYWHITE);
         DrawTexture(BocksImage, Bocks.x, Bocks.y, WHITE);

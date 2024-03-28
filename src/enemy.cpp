@@ -1,10 +1,36 @@
 #include "raylib.h"
 #include <iostream>
-#include "player.h"
+#include "enemy.h"
 #include "game.h"
 
 
-void player::PlayerMovement(Vector2 &Bocks, Texture2D BocksSize, float deltaTime)
+void enemy::EnemyMovement(Vector2 &BocksEnemy, Texture2D BocksEnemyImage, float deltaTime)
 {
     
+    if(Left == true)  
+    {
+        if(Right == false)  
+        {
+        BocksEnemy.x -= SpeedEnemy;
+        }
+    }
+    if(Right == true)  
+    {
+        if(Left == false)  
+        {
+        BocksEnemy.x += SpeedEnemy;
+        }
+    }
+    
+    if(BocksEnemy.x < 500)
+    {
+        Right = true;
+        Left = false;
+    }
+
+      if(BocksEnemy.x > 1500)
+    {
+        Right = false;
+        Left = true;
+    }
 }
