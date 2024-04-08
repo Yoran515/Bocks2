@@ -10,18 +10,20 @@ class player
 private:
     /* data */
 public:
-  
-  float timer = 0;
-  bool Onground; 
-  float speedPlayer = 0.2f;
-  float gravity = 0.001f;
-  float JumpForce = 0.1f;
-  bool isJumping;
+    bool Fullscreen= false;
+    float timer = 0;
+    bool Onground; 
+    
+    float speedPlayer = 0.2f;
 
-  bool Looking_Left= false;
-  bool Looking_Right= false;
-  
-  bool Falling;
-  void PlayerMovement(Vector2 &Bocks, Texture2D BocksSize, float deltaTime);
+    float gravity = 0.001f;
+    float JumpForce = 0.1f;
+    bool isJumping;
+
+    bool Looking_Left= false;
+    bool Looking_Right= false;
+    
+    bool Falling;
+    void PlayerMovement(Vector2 &Bocks, Texture2D BocksSize, float deltaTime);
 };
 #endif

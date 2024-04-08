@@ -2,52 +2,58 @@
 #include "enemy.h"
 #include "raylib.h"
 #include <iostream>
-#include "game.h"
+#include "drawingplatform.h"
 #include "platform.h"
 
 int main()
 {
     
     player playerInstance;
-    game GameStuff;
+    drawingplatform GameStuff;
     enemy Enemy;
 
     InitWindow(GameStuff.SCREEN_WIDTH, GameStuff.SCREEN_HEIGHT, "Window title");
 
-    GameStuff.InitializePlatforms();  // Initialize platforms
+    GameStuff.InitializePlatforms();  
     
-    Texture2D BocksImage = LoadTexture("assets/Mokey.png");
-    Vector2 Bocks = { static_cast<float>(GameStuff.SCREEN_WIDTH) / 2.0f, static_cast<float>(GameStuff.SCREEN_HEIGHT) - BocksImage.height };
+    Texture2D BocksImage = LoadTexture("assets/Bockey.png");
+    Vector2 Bocks = { (float)(GameStuff.SCREEN_WIDTH) / 2.0f, (float)(GameStuff.SCREEN_HEIGHT) - BocksImage.height };
 
 
-    Texture2D BocksEnemyImage = LoadTexture("assets/Mokey.png");
-    Vector2 BocksEnemy = { static_cast<float>(GameStuff.SCREEN_WIDTH) / 2.0f, static_cast<float>(GameStuff.SCREEN_HEIGHT) - BocksImage.height };
 
-    float deltaTime = GetFrameTime();  // Get the time between frames
+    Texture2D BocksEnemyImage = LoadTexture("assets/Bockey_Enemy.png");
+    Vector2 BocksEnemy = { (float)(GameStuff.SCREEN_WIDTH) / 2.0f, (float)(GameStuff.SCREEN_HEIGHT) - BocksImage.height };
+
+    float deltaTime = GetFrameTime();  
     GameStuff.timer = 0;
     Bocks.x = 500;
     Bocks.y = 500;
+    
+    // ToggleFullscreen();
 
-    BocksEnemy.x = 960;
-    BocksEnemy.y = 540;
+    BocksEnemy.x = (float)GameStuff.SCREEN_WIDTH/2;
+    BocksEnemy.y = (float)GameStuff.SCREEN_HEIGHT/2;
     
-    while (!WindowShouldClose())
+while (!WindowShouldClose())
+{
+    
+        // std::cout <<BocksEnemy.x <<std::endl;
+    std::cout << GameStuff.collided <<std::endl;
+    
+    for (const auto& platform : GameStuff.platforms)
     {
-         std::cout <<BocksEnemy.x <<std::endl;
-        // GameStuff.CheckCollision(playerInstance, MokeyImage, Mokey);
-        for (const auto& platform : GameStuff.platforms)
-        {
-            platform.Draw();
-        }
- 
-        playerInstance.PlayerMovement(Bocks, BocksImage, deltaTime); 
-        Enemy.EnemyMovement(BocksEnemy, BocksEnemyImage, deltaTime); 
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-        DrawTexture(BocksImage, Bocks.x, Bocks.y, WHITE);
-        DrawTexture(BocksEnemyImage, BocksEnemy.x, BocksEnemy.y, WHITE);
-    
+        platform.Draw();
+    }
+        
+    playerInstance.PlayerMovement(Bocks, BocksImage, deltaTime); 
+    Enemy.EnemyMovement(BocksEnemy, BocksEnemyImage, deltaTime); 
+    BeginDrawing();
+    ClearBackground(RAYWHITE);
+    DrawTexture(BocksImage, Bocks.x, Bocks.y, WHITE);
+    DrawTexture(BocksEnemyImage, BocksEnemy.x, BocksEnemy.y, WHITE);
+
     EndDrawing();
+    
     }
 
     UnloadTexture(BocksImage);

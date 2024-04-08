@@ -1,7 +1,7 @@
 #include "raylib.h"
 #include <iostream>
 #include "enemy.h"
-#include "game.h"
+#include "drawingplatform.h"
 
 
 void enemy::EnemyMovement(Vector2 &BocksEnemy, Texture2D BocksEnemyImage, float deltaTime)
