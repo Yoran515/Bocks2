@@ -61,6 +61,7 @@ int main()
         EndDrawing();
         
     }
+
    
     UnloadTexture(BocksEnemyImage);
     UnloadTexture(BocksImage);

@@ -43,4 +43,5 @@ void enemy::EnemyMovement(Vector2 &BocksEnemy, Texture2D BocksEnemyImage, float 
         Left = true;
     }
 
+
 }
