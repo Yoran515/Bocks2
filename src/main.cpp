@@ -4,7 +4,6 @@
 #include <iostream>
 #include "game.h"
 #include "platform.h"
-#include "entity.h"
 
 int main()
 {
@@ -18,11 +17,11 @@ int main()
 
     GameStuff.InitializePlatforms();  
     
-    Texture2D BocksImage = LoadTexture("assets/Mokey.png");
+    Texture2D BocksImage = LoadTexture("assets/Bockey.png");
     Vector2 Bocks = { (float)(GameStuff.SCREEN_WIDTH) / 2.0f, (float)(GameStuff.SCREEN_HEIGHT) - BocksImage.height };
 
 
-    Texture2D BocksEnemyImage = LoadTexture("assets/Mokey.png");
+    Texture2D BocksEnemyImage = LoadTexture("assets/Bockey_Enemy.png");
     Vector2 BocksEnemy = { (float)(GameStuff.SCREEN_WIDTH) / 2.0f,(float) (GameStuff.SCREEN_HEIGHT) - BocksImage.height };
 
     float deltaTime = GetFrameTime();  // Get the time between frames
@@ -38,7 +37,7 @@ int main()
     {
 
         BeginDrawing();
-        std::cout << "TEST" <<std::endl;
+        
         for (const auto& platform : GameStuff.platforms)
         {
             platform.Draw();
@@ -47,10 +46,8 @@ int main()
 
         DrawTexture(BocksImage, (int)Bocks.x, (int)Bocks.y, WHITE);
         DrawTexture(BocksEnemyImage, (int)BocksEnemy.x, (int)BocksEnemy.y, WHITE);
-       
         
-    
-    EndDrawing();
+        EndDrawing();
     }
 
     UnloadTexture(BocksEnemyImage);

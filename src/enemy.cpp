@@ -2,13 +2,13 @@
 #include <iostream>
 #include "enemy.h"
 #include "game.h"
-
+#include "drawingplatform.h"
 
 void enemy::EnemyMovement(Vector2 &BocksEnemy, Texture2D BocksEnemyImage, float deltaTime)
 {
 
     game GameStuff;
-    std::cout <<"test" <<std::endl;
+    // std::cout <<"test" <<std::endl;
     // BocksEnemyImage = LoadTexture("assets/Bockey_Enemy.png");
     // BocksEnemy = { (float)(GameStuff.SCREEN_WIDTH) / 2.0f, (float)(GameStuff.SCREEN_HEIGHT) - BocksEnemyImage.height };
 
