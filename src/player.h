@@ -25,5 +25,6 @@ public:
     
     bool Falling;
     void PlayerMovement(Vector2 &Bocks, Texture2D BocksSize, float deltaTime);
+    
 };
 #endif

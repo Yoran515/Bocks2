@@ -4,11 +4,17 @@
 #include "drawingplatform.h"
 
 
-void player::PlayerMovement(Vector2 &Bocks, Texture2D BocksSize, float deltaTime)
+void player::PlayerMovement(Vector2 &Bocks, Texture2D BocksImage, float deltaTime)
 {
     timer++;
-
     drawingplatform GameStuff;
+    
+    // BocksImage = LoadTexture("assets/Bockey.png");
+    // Bocks = { (float)(GameStuff.SCREEN_WIDTH) / 2.0f, (float)(GameStuff.SCREEN_HEIGHT) - BocksImage.height };
+
+    // Bocks.x = 500;
+    // Bocks.y = 500;
+  
 
     if (timer > 3000)
     {
@@ -17,7 +23,7 @@ void player::PlayerMovement(Vector2 &Bocks, Texture2D BocksSize, float deltaTime
    
     if(GameStuff.collided == false)
     {
-        if (IsKeyDown(KEY_D) && Bocks.x < GameStuff.SCREEN_WIDTH - BocksSize.width)
+        if (IsKeyDown(KEY_D) && Bocks.x < GameStuff.SCREEN_WIDTH - BocksImage.width)
         {
             Bocks.x += speedPlayer; 
         }
@@ -26,7 +32,7 @@ void player::PlayerMovement(Vector2 &Bocks, Texture2D BocksSize, float deltaTime
         {
             Bocks.x -= speedPlayer;
         }
-        if (IsKeyDown(KEY_S) && Bocks.y < GameStuff.SCREEN_HEIGHT - BocksSize.height)
+        if (IsKeyDown(KEY_S) && Bocks.y < GameStuff.SCREEN_HEIGHT - BocksImage.height)
         {
             Bocks.y += speedPlayer; 
         }
@@ -36,4 +42,6 @@ void player::PlayerMovement(Vector2 &Bocks, Texture2D BocksSize, float deltaTime
             Bocks.y -= speedPlayer;
         } 
     }
+    
+ 
 }
