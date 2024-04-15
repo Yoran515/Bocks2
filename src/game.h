@@ -13,7 +13,7 @@ class game
     public:
     
     int SCREEN_WIDTH  = 1920;
-    int SCREEN_HEIGHT = 1080;
+    int SCREEN_HEIGHT = 780;
 
     float timer = 0;
 

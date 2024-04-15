@@ -10,15 +10,15 @@ class player
 private:
     /* data */
 public:
-    bool Fullscreen= false;
-    float timer = 0;
-    bool Onground; 
-    
-    float speedPlayer = 0.2f;
+  
+  float timer = 0;
+  bool Onground; 
+  float speedPlayer = 0.2f;
+  float gravity = 0.001f;
+  float JumpForce = 0.1f;
+  bool isJumping;
 
-    float gravity = 0.001f;
-    float JumpForce = 0.1f;
-    bool isJumping;
+
 
     bool Looking_Left= false;
     bool Looking_Right= false;
