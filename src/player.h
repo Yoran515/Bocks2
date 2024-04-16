@@ -18,13 +18,10 @@ public:
   float JumpForce = 0.1f;
   bool isJumping;
 
-
-
-    bool Looking_Left= false;
-    bool Looking_Right= false;
-    
-    bool Falling;
-    void PlayerMovement(Vector2 &Bocks, Texture2D BocksSize, float deltaTime);
-    
+  bool Looking_Left= false;
+  bool Looking_Right= false;
+  
+  bool Falling;
+  void PlayerMovement(Vector2 &Bocks, Texture2D BocksSize, float deltaTime);
 };
 #endif

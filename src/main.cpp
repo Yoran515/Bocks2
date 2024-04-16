@@ -4,6 +4,7 @@
 #include <iostream>
 #include "game.h"
 #include "platform.h"
+#include "entity.h"
 
 int main()
 {
@@ -12,46 +13,50 @@ int main()
     player playerInstance;
     game GameStuff;
     enemy Enemy;
+    entity Entitystuff;
 
     InitWindow(GameStuff.SCREEN_WIDTH, GameStuff.SCREEN_HEIGHT, "Window title");
 
-    GameStuff.InitializePlatforms();  
+    GameStuff.InitializePlatforms();  // Initialize platforms
     
     Texture2D BocksImage = LoadTexture("assets/Bockey.png");
-    Vector2 Bocks = { (float)(GameStuff.SCREEN_WIDTH) / 2.0f, (float)(GameStuff.SCREEN_HEIGHT) - BocksImage.height };
+    Vector2 Bocks = { (GameStuff.SCREEN_WIDTH) / 2.0f, (float)(GameStuff.SCREEN_HEIGHT) - BocksImage.height };
 
 
     Texture2D BocksEnemyImage = LoadTexture("assets/Bockey_Enemy.png");
-    Vector2 BocksEnemy = { (float)(GameStuff.SCREEN_WIDTH) / 2.0f,(float) (GameStuff.SCREEN_HEIGHT) - BocksImage.height };
+    Vector2 BocksEnemy = { (GameStuff.SCREEN_WIDTH) / 2.0f, (float)(GameStuff.SCREEN_HEIGHT) - BocksImage.height };
 
     float deltaTime = GetFrameTime();  // Get the time between frames
     GameStuff.timer = 0;
 
-    Bocks.x = 500;
-    Bocks.y = 500;
+    Bocks.x = 300;
+    Bocks.y = 300;
 
     BocksEnemy.x = 960;
     BocksEnemy.y = 540;
-    
+   
     while (!WindowShouldClose())
     {
-
+        playerInstance.PlayerMovement(Bocks, BocksImage, deltaTime); 
+        Enemy.EnemyMovement(BocksEnemy, BocksEnemyImage, deltaTime); 
+    
         BeginDrawing();
         
         for (const auto& platform : GameStuff.platforms)
         {
             platform.Draw();
         }
+    
+        // DrawTexture(BocksImage, (int)Bocks.x, (int)Bocks.y, WHITE);
+        DrawTexture(BocksEnemyImage, (int)BocksEnemy.x, (int)BocksEnemy.y, WHITE);
+
         ClearBackground(RAYWHITE);
 
-        DrawTexture(BocksImage, (int)Bocks.x, (int)Bocks.y, WHITE);
-        DrawTexture(BocksEnemyImage, (int)BocksEnemy.x, (int)BocksEnemy.y, WHITE);
-        
         EndDrawing();
     }
 
     UnloadTexture(BocksEnemyImage);
-    UnloadTexture(BocksImage);
+    // UnloadTexture(BocksImage);
     CloseWindow();
 
     return 0;
