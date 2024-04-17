@@ -7,12 +7,7 @@ void enemy::EnemyMovement(Vector2 &BocksEnemy, Texture2D BocksEnemyImage, float 
 {
 
     game GameStuff;
-  
-
-    BocksEnemy.x = (float)GameStuff.SCREEN_WIDTH/2;
-    BocksEnemy.y = (float)GameStuff.SCREEN_HEIGHT/2;
-
-  
+     
     if(Left == true)  
     {
         if(Right == false)  
@@ -40,6 +35,4 @@ void enemy::EnemyMovement(Vector2 &BocksEnemy, Texture2D BocksEnemyImage, float 
         Right = false;
         Left = true;
     }
-
-
 }

@@ -14,7 +14,7 @@ public:
 bool Left = true;
 bool Right = false;
 
-float SpeedEnemy = 0.1f;
+float SpeedEnemy = 0.2f;
 void EnemyMovement(Vector2 &BocksEnemy, Texture2D BocksEnemyImage, float deltaTime);
 
 };

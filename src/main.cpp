@@ -8,8 +8,6 @@
 
 int main()
 {
-    //Sub Class maken genaamd entity en doe daarin DrawTexture daarin de Enemy en de Player!!
-
     player playerInstance;
     game GameStuff;
     enemy Enemy;
@@ -18,45 +16,63 @@ int main()
     InitWindow(GameStuff.SCREEN_WIDTH, GameStuff.SCREEN_HEIGHT, "Window title");
 
     GameStuff.InitializePlatforms();  
-    
 
-    // float deltaTime = GetFrameTime();  // Get the time between frames
-    GameStuff.timer = 0;
+ 
 
     Texture2D BocksImage = LoadTexture("assets/Bockey.png");
-    Vector2 Bocks = { (GameStuff.SCREEN_WIDTH) / 2.0f, (float)(GameStuff.SCREEN_HEIGHT) - BocksImage.height };
+    Vector2 Bocks = { 500, 500 }; 
 
     Texture2D BocksEnemyImage = LoadTexture("assets/Bockey_Enemy.png");
-    Vector2 BocksEnemy = { (GameStuff.SCREEN_WIDTH) / 2.0f, (float)(GameStuff.SCREEN_HEIGHT) - BocksImage.height };
-    Bocks.x = 500;
-    Bocks.y = 500;
+    Vector2 BocksEnemy = { 900, 500 }; 
 
-    BocksEnemy.x = 900;
-    BocksEnemy.y = 500;
+    Texture2D BocksEnemyPetImage = LoadTexture("assets/Bockey_Enemy_Pet.png");
+    float rotationAngle = 1.0f;
+    float rotationSpeed = 90.0f; 
     
     while (!WindowShouldClose())
-
     {
-    
         BeginDrawing();
         ClearBackground(RAYWHITE);
-         
-        playerInstance.PlayerMovement(Bocks, BocksImage); 
-        // Enemy.EnemyMovement(Entitystuff.BocksEnemy, Entitystuff.BocksEnemyImage, deltaTime); 
+        
+        float deltaTime = GetFrameTime();
 
+        playerInstance.PlayerMovement(Bocks, BocksImage); 
+        Enemy.EnemyMovement(BocksEnemy, BocksEnemyImage, deltaTime); 
+
+        
+        
         for (const auto& platform : GameStuff.platforms)
         {
             platform.Draw();
         }
+        std::cout <<rotationAngle << std::endl;
+    
+        rotationAngle += rotationSpeed * deltaTime;
+        
+        if (rotationAngle >= 360.0f) 
+        {
+             rotationAngle -= 360.0f; 
+        }
+
+        Vector2 offset = { 250, 250 }; 
+    
+        
+        Vector2 bocksEnemyPet = 
+        {
+            BocksEnemy.x + offset.x * cos(DEG2RAD * rotationAngle) - offset.y * sin(DEG2RAD * rotationAngle),
+            BocksEnemy.y + offset.x * sin(DEG2RAD * rotationAngle) + offset.y * cosf(DEG2RAD * rotationAngle)
+            
+        };
+
     
         DrawTexture(BocksImage, (int)Bocks.x, (int)Bocks.y, WHITE);
         DrawTexture(BocksEnemyImage, (int)BocksEnemy.x, (int)BocksEnemy.y, WHITE);
-
-       
+        DrawTexture(BocksEnemyPetImage, (int)bocksEnemyPet.x, (int)bocksEnemyPet.y, WHITE);
 
         EndDrawing();
     }
 
+    UnloadTexture(BocksEnemyPetImage);
     UnloadTexture(BocksEnemyImage);
     UnloadTexture(BocksImage);
     CloseWindow();

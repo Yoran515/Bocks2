@@ -11,11 +11,5 @@ private:
     /* data */
 public:
     game GameStuff;
-
-
-
-    
-
-
 };
 #endif
