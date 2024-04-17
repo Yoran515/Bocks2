@@ -12,7 +12,7 @@ set(BUILD_GAMES    OFF CACHE BOOL "" FORCE) # or games
 
 add_subdirectory(libs/raylib)
 
-add_executable(${PROJECT_NAME} src/main.cpp src/player.cpp src/enemy.cpp src/entity.cpp) 
+add_executable(${PROJECT_NAME} src/main.cpp src/player.cpp src/enemy.cpp) 
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 
 # Copy assets to build directory

@@ -4,7 +4,7 @@
 #include "game.h"
 
 
-void player::PlayerMovement(Vector2 &Bocks, Texture2D BocksImage, float deltaTime)
+void player::PlayerMovement(Vector2 &Bocks, Texture2D BocksImage)
 {
     timer++;
     // std::cout <<Looking_Left << std::endl;;

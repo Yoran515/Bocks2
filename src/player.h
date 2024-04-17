@@ -22,6 +22,6 @@ public:
   bool Looking_Right= false;
   
   bool Falling;
-  void PlayerMovement(Vector2 &Bocks, Texture2D BocksSize, float deltaTime);
+  void PlayerMovement(Vector2 &Bocks, Texture2D BocksSize);
 };
 #endif

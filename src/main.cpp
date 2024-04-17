@@ -17,46 +17,48 @@ int main()
 
     InitWindow(GameStuff.SCREEN_WIDTH, GameStuff.SCREEN_HEIGHT, "Window title");
 
-    GameStuff.InitializePlatforms();  // Initialize platforms
+    GameStuff.InitializePlatforms();  
     
+
+    // float deltaTime = GetFrameTime();  // Get the time between frames
+    GameStuff.timer = 0;
+
     Texture2D BocksImage = LoadTexture("assets/Bockey.png");
     Vector2 Bocks = { (GameStuff.SCREEN_WIDTH) / 2.0f, (float)(GameStuff.SCREEN_HEIGHT) - BocksImage.height };
 
-
     Texture2D BocksEnemyImage = LoadTexture("assets/Bockey_Enemy.png");
     Vector2 BocksEnemy = { (GameStuff.SCREEN_WIDTH) / 2.0f, (float)(GameStuff.SCREEN_HEIGHT) - BocksImage.height };
+    Bocks.x = 500;
+    Bocks.y = 500;
 
-    float deltaTime = GetFrameTime();  // Get the time between frames
-    GameStuff.timer = 0;
-
-    Bocks.x = 300;
-    Bocks.y = 300;
-
-    BocksEnemy.x = 960;
-    BocksEnemy.y = 540;
-   
+    BocksEnemy.x = 900;
+    BocksEnemy.y = 500;
+    
     while (!WindowShouldClose())
+
     {
-        playerInstance.PlayerMovement(Bocks, BocksImage, deltaTime); 
-        Enemy.EnemyMovement(BocksEnemy, BocksEnemyImage, deltaTime); 
     
         BeginDrawing();
-        
+        ClearBackground(RAYWHITE);
+         
+        playerInstance.PlayerMovement(Bocks, BocksImage); 
+        // Enemy.EnemyMovement(Entitystuff.BocksEnemy, Entitystuff.BocksEnemyImage, deltaTime); 
+
         for (const auto& platform : GameStuff.platforms)
         {
             platform.Draw();
         }
     
-        // DrawTexture(BocksImage, (int)Bocks.x, (int)Bocks.y, WHITE);
+        DrawTexture(BocksImage, (int)Bocks.x, (int)Bocks.y, WHITE);
         DrawTexture(BocksEnemyImage, (int)BocksEnemy.x, (int)BocksEnemy.y, WHITE);
 
-        ClearBackground(RAYWHITE);
+       
 
         EndDrawing();
     }
 
     UnloadTexture(BocksEnemyImage);
-    // UnloadTexture(BocksImage);
+    UnloadTexture(BocksImage);
     CloseWindow();
 
     return 0;
