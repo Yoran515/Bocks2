@@ -4,48 +4,79 @@
 #include <iostream>
 #include "game.h"
 #include "platform.h"
-#include "entity.h"
+#include "platform.h"
 
 int main()
 {
     player playerInstance;
     game GameStuff;
     enemy Enemy;
-    entity Entitystuff;
-
+  
     InitWindow(GameStuff.SCREEN_WIDTH, GameStuff.SCREEN_HEIGHT, "Window title");
 
     GameStuff.InitializePlatforms();  
 
- 
-
     Texture2D BocksImage = LoadTexture("assets/Bockey.png");
-    Vector2 Bocks = { 500, 500 }; 
+    Vector2 Bocks = { 100, 500 }; 
 
     Texture2D BocksEnemyImage = LoadTexture("assets/Bockey_Enemy.png");
     Vector2 BocksEnemy = { 900, 500 }; 
 
     Texture2D BocksEnemyPetImage = LoadTexture("assets/Bockey_Enemy_Pet.png");
     float rotationAngle = 1.0f;
-    float rotationSpeed = 90.0f; 
+    float rotationSpeed = 180.0f; 
+    SetTargetFPS(60);
+    Vector2 offset = { 250, 250 }; 
+
     
+
+    // Call the member functions to get platform width, height, and position
+   
+
     while (!WindowShouldClose())
     {
         BeginDrawing();
         ClearBackground(RAYWHITE);
         
-        float deltaTime = GetFrameTime();
+        Vector2 bocksEnemyPet = 
+        {
+            BocksEnemy.x + offset.x * cos(DEG2RAD * rotationAngle) - offset.y * sin(DEG2RAD * rotationAngle),
+            BocksEnemy.y + offset.x * sin(DEG2RAD * rotationAngle) + offset.y * cosf(DEG2RAD * rotationAngle)
+            
+        };
+   
 
-        playerInstance.PlayerMovement(Bocks, BocksImage); 
-        Enemy.EnemyMovement(BocksEnemy, BocksEnemyImage, deltaTime); 
+        Rectangle platformCollision = { };
+       
 
-        
-        
+        //Colliders
+        Rectangle PlayerCollision = {Bocks.x, Bocks.y,(float)BocksImage.width,(float)BocksImage.height};
+        Rectangle EnemyCollision = {BocksEnemy.x, BocksEnemy.y,(float)BocksEnemyImage.width,(float)BocksEnemyImage.height};
+        Rectangle EnemyPetCollision = {bocksEnemyPet.x, bocksEnemyPet.y,(float)BocksEnemyPetImage.width,(float)BocksEnemyPetImage.height};
+        Rectangle Win = {1800, 500,200,500};
+       
         for (const auto& platform : GameStuff.platforms)
         {
             platform.Draw();
         }
-        std::cout <<rotationAngle << std::endl;
+        
+        // float platformWidth = platform.getWidth();
+        // float platformHeight = platform.getHeight();
+        // Vector2 platformPosition = platform.getPosition();
+        
+        float deltaTime = GetFrameTime();
+
+        if(GameStuff.START == false )
+        {
+        playerInstance.PlayerMovement(Bocks, BocksImage, deltaTime, platformCollision);
+
+        Enemy.EnemyMovement(BocksEnemy, BocksEnemyImage, deltaTime); 
+
+        }
+        
+        
+        std::cout <<GameStuff.START << std::endl;
+        
     
         rotationAngle += rotationSpeed * deltaTime;
         
@@ -54,20 +85,54 @@ int main()
              rotationAngle -= 360.0f; 
         }
 
-        Vector2 offset = { 250, 250 }; 
-    
         
-        Vector2 bocksEnemyPet = 
+        if( playerInstance.won == false)
         {
-            BocksEnemy.x + offset.x * cos(DEG2RAD * rotationAngle) - offset.y * sin(DEG2RAD * rotationAngle),
-            BocksEnemy.y + offset.x * sin(DEG2RAD * rotationAngle) + offset.y * cosf(DEG2RAD * rotationAngle)
-            
-        };
-
-    
+            if(CheckCollisionRecs(PlayerCollision,EnemyCollision)|| CheckCollisionRecs(PlayerCollision,EnemyPetCollision))
+            {
+                playerInstance.died = true;
+            }
+        }
+         if(playerInstance.died == false)
+        {
+            if(CheckCollisionRecs(PlayerCollision,Win))
+            {
+                std::cout <<"Won" << std::endl;
+                playerInstance.won = true;
+            }
+        }
+        
         DrawTexture(BocksImage, (int)Bocks.x, (int)Bocks.y, WHITE);
         DrawTexture(BocksEnemyImage, (int)BocksEnemy.x, (int)BocksEnemy.y, WHITE);
         DrawTexture(BocksEnemyPetImage, (int)bocksEnemyPet.x, (int)bocksEnemyPet.y, WHITE);
+        DrawFPS(1800,50);
+        if(playerInstance.died ==true)
+        {
+            if(playerInstance.won == false)
+            {
+                DrawText("YOU DIED",500,500,150,RED);
+            }
+        }
+        if(playerInstance.won == true)
+        {
+            if(playerInstance.died ==false)
+            {
+                DrawText("YOU WON",500,500,150,GREEN);
+            }
+        }
+       
+        if(GameStuff.START == true)
+        {
+            DrawText("START?",500,400,100,GREEN);
+            DrawText("PRESS THE ENTER KEY",500,500,100,GREEN);
+            
+        } 
+
+        if(IsKeyDown(KEY_ENTER))
+        {
+            GameStuff.START = false;
+            
+        }
 
         EndDrawing();
     }

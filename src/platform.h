@@ -13,6 +13,8 @@ public:
     {
         rect = { x, y, width, height };
     }
+    
+    
 
     void Draw() const
     {
