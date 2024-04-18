@@ -15,8 +15,7 @@ void player::PlayerMovement(Vector2 &Bocks, Texture2D BocksImage, float deltaTim
     allowMoveRight = true;
     allowMoveUp = true;
     allowMoveDown = true;
-          
-    // std::cout << GameStuff.collided;
+
 
     if (CheckCollisionRecs({ Bocks.x, Bocks.y, (float)BocksImage.width, (float)BocksImage.height }, platformCollision))
     {

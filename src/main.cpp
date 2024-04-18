@@ -29,8 +29,7 @@ int main()
     Vector2 offset = { 250, 250 }; 
 
     
-
-    // Call the member functions to get platform width, height, and position
+    ToggleFullscreen();
    
 
     while (!WindowShouldClose())
@@ -48,8 +47,6 @@ int main()
 
         Rectangle platformCollision = { };
        
-
-        //Colliders
         Rectangle PlayerCollision = {Bocks.x, Bocks.y,(float)BocksImage.width,(float)BocksImage.height};
         Rectangle EnemyCollision = {BocksEnemy.x, BocksEnemy.y,(float)BocksEnemyImage.width,(float)BocksEnemyImage.height};
         Rectangle EnemyPetCollision = {bocksEnemyPet.x, bocksEnemyPet.y,(float)BocksEnemyPetImage.width,(float)BocksEnemyPetImage.height};
@@ -60,16 +57,12 @@ int main()
             platform.Draw();
         }
         
-        // float platformWidth = platform.getWidth();
-        // float platformHeight = platform.getHeight();
-        // Vector2 platformPosition = platform.getPosition();
-        
         float deltaTime = GetFrameTime();
 
         if(GameStuff.START == false )
         {
         playerInstance.PlayerMovement(Bocks, BocksImage, deltaTime, platformCollision);
-
+        
         Enemy.EnemyMovement(BocksEnemy, BocksEnemyImage, deltaTime); 
 
         }
@@ -79,11 +72,6 @@ int main()
         
     
         rotationAngle += rotationSpeed * deltaTime;
-        
-        if (rotationAngle >= 360.0f) 
-        {
-             rotationAngle -= 360.0f; 
-        }
 
         
         if( playerInstance.won == false)
@@ -105,8 +93,10 @@ int main()
         DrawTexture(BocksImage, (int)Bocks.x, (int)Bocks.y, WHITE);
         DrawTexture(BocksEnemyImage, (int)BocksEnemy.x, (int)BocksEnemy.y, WHITE);
         DrawTexture(BocksEnemyPetImage, (int)bocksEnemyPet.x, (int)bocksEnemyPet.y, WHITE);
+
         DrawFPS(1800,50);
-        if(playerInstance.died ==true)
+
+        if(playerInstance.died == true)
         {
             if(playerInstance.won == false)
             {
@@ -123,8 +113,8 @@ int main()
        
         if(GameStuff.START == true)
         {
-            DrawText("START?",500,400,100,GREEN);
-            DrawText("PRESS THE ENTER KEY",500,500,100,GREEN);
+            DrawText("START?",700,400,100,GREEN);
+            DrawText("PRESS THE ENTER KEY",400,500,100,GREEN);
             
         } 
 
